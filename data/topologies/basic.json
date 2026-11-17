@@ -1,0 +1,14 @@
+{
+  "routers": [
+    {"id": "A"},
+    {"id": "B"},
+    {"id": "C"},
+    {"id": "D"}
+  ],
+  "links": [
+    {"id": "AB", "source": "A", "target": "B", "cost": 1, "active": true},
+    {"id": "AC", "source": "A", "target": "C", "cost": 2, "active": true},
+    {"id": "BD", "source": "B", "target": "D", "cost": 1, "active": true},
+    {"id": "CD", "source": "C", "target": "D", "cost": 3, "active": true}
+  ]
+}
