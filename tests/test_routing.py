@@ -49,7 +49,7 @@ def test_build_routing_table_includes_all_destinations() -> None:
     assert set(table) == {"A", "B", "C", "D"}
     assert table["A"]["path"] == ["A"]
     assert table["D"]["path"] == ["A", "B", "D"]
-    assert table["D"]["total_cost"] == 2
+    assert table["D"]["cost"] == 2
 
 
 def test_route_api_returns_shortest_path() -> None:
