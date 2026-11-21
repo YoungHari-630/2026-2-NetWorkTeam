@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101820">
+    <title>Route Lab — OSPF Network Simulator</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Route Lab 홈">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span>ROUTE<span class="brand-light">LAB</span></span>
+        </a>
+        <div class="topbar-center"><span class="eyebrow">NETWORK SIMULATOR</span><span class="topbar-divider"></span><span>OSPF / Dijkstra</span></div>
+        <div class="connection-pill" id="connection-pill" data-state="loading">
+          <span class="connection-dot"></span><span id="connection-label">연결 확인 중</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow accent">LINK-STATE ROUTING LAB</p>
+            <h1>라우팅 경로를 <span>직접 탐색하세요.</span></h1>
+            <p class="page-description">링크 비용과 상태를 바꾸며 네트워크의 최단 경로가 어떻게 달라지는지 확인합니다.</p>
+          </div>
+          <div class="network-chip"><span class="chip-icon">⌘</span><span>기본 토폴로지</span><b>4 ROUTERS</b></div>
+        </section>
+
+        <section class="workspace">
+          <article class="panel topology-panel">
+            <div class="panel-heading">
+              <div>
+                <div class="panel-kicker"><span class="live-indicator"></span> TOPOLOGY MAP</div>
+                <h2>네트워크 토폴로지</h2>
+              </div>
+              <div class="map-actions">
+                <span class="map-hint"><kbd>드래그</kbd> 이동 <kbd>스크롤</kbd> 확대</span>
+                <button class="icon-button" id="fit-button" type="button" title="그래프 맞춤" aria-label="그래프 맞춤">⤢</button>
+              </div>
+            </div>
+            <div class="graph-wrap">
+              <div id="cy" role="img" aria-label="라우터와 링크를 표시한 네트워크 그래프"></div>
+              <div class="graph-overlay" id="graph-loading">그래프를 준비하고 있어요…</div>
+              <div class="map-legend">
+                <span><i class="legend-line active"></i> 활성 링크</span>
+                <span><i class="legend-line failed"></i> 장애 링크</span>
+                <span><i class="legend-line route"></i> 최단 경로</span>
+              </div>
+              <div class="graph-corner-label">UNDIRECTED · WEIGHTED</div>
+            </div>
+            <div class="topology-footer">
+              <div class="metric"><span class="metric-icon router-icon">◇</span><span><b id="router-count">0</b><small>라우터</small></span></div>
+              <span class="metric-separator"></span>
+              <div class="metric"><span class="metric-icon link-icon">↗</span><span><b id="active-link-count">0 / 0</b><small>활성 링크</small></span></div>
+              <div class="footer-note"><span class="footer-note-dot"></span> 링크를 클릭해 선택하세요</div>
+            </div>
+          </article>
+
+          <aside class="right-column">
+            <article class="panel route-panel">
+              <div class="panel-heading compact">
+                <div><div class="panel-kicker">ROUTE CALCULATOR</div><h2>경로 계산</h2></div>
+                <span class="algorithm-badge"><span>↗</span> DIJKSTRA</span>
+              </div>
+              <div class="route-inputs">
+                <label class="select-field">
+                  <span>출발 라우터 <b>SOURCE</b></span>
+                  <select id="source-select" aria-label="출발 라우터"></select>
+                </label>
+                <span class="route-arrow" aria-hidden="true">→</span>
+                <label class="select-field">
+                  <span>목적 라우터 <b>DESTINATION</b></span>
+                  <select id="destination-select" aria-label="목적 라우터"></select>
+                </label>
+              </div>
+              <button class="primary-button" id="calculate-button" type="button"><span>최단 경로 계산</span><span aria-hidden="true">↗</span></button>
+              <div class="route-result" id="route-result" aria-live="polite">
+                <div class="result-topline"><span>CALCULATION RESULT</span><span class="result-badge" id="result-badge">대기 중</span></div>
+                <div class="result-stat-grid">
+                  <div class="result-stat"><span>출발</span><strong id="result-source">A</strong></div>
+                  <div class="result-stat"><span>목적</span><strong id="result-destination">D</strong></div>
+                  <div class="result-stat"><span>총 비용</span><strong id="result-cost">—</strong></div>
+                </div>
+                <div class="path-block"><span class="sub-label">SHORTEST PATH</span><div id="result-path" class="path-value">계산 버튼을 눌러 경로를 확인하세요.</div></div>
+                <p class="result-note" id="result-note">경로 계산 결과는 백엔드 API를 기준으로 표시합니다.</p>
+              </div>
+            </article>
+
+            <article class="panel link-panel">
+              <div class="panel-heading compact">
+                <div><div class="panel-kicker">LINK CONTROL</div><h2>링크 상태</h2></div>
+                <button class="text-button" id="reset-button" type="button"><span aria-hidden="true">↻</span> 초기화</button>
+              </div>
+              <div class="selected-link-card" id="selected-link-card">
+                <div class="selected-link-icon">⌁</div>
+                <div class="selected-link-copy"><span class="sub-label">선택한 링크</span><strong id="selected-link-name">링크를 선택하세요</strong></div>
+                <span class="state-badge" id="selected-link-state">—</span>
+              </div>
+              <button class="secondary-button" id="toggle-link-button" type="button" disabled><span id="toggle-button-icon">⊘</span><span id="toggle-button-label">링크를 먼저 선택하세요</span></button>
+              <p class="control-note" id="control-note">링크를 선택한 뒤 장애 또는 복구를 적용할 수 있습니다.</p>
+            </article>
+          </aside>
+        </section>
+
+        <section class="bottom-grid">
+          <article class="panel routing-table-panel">
+            <div class="panel-heading compact">
+              <div><div class="panel-kicker">ROUTING TABLE</div><h2>라우팅 테이블</h2></div>
+              <span class="coming-soon">다음 단계</span>
+            </div>
+            <div class="table-placeholder">
+              <div class="placeholder-icon">▤</div>
+              <div><strong>라우팅 테이블 영역</strong><span>라우터별 다음 홉과 비용 정보를 여기에 표시합니다.</span></div>
+              <span class="placeholder-lock">추후 연결</span>
+            </div>
+          </article>
+          <article class="panel status-panel">
+            <div class="panel-heading compact">
+              <div><div class="panel-kicker">NETWORK STATUS</div><h2>상태 요약</h2></div>
+              <span class="status-summary-icon">⌁</span>
+            </div>
+            <div class="status-summary">
+              <div><span class="summary-label">활성 링크</span><strong id="summary-active">—</strong></div>
+              <div><span class="summary-label">장애 링크</span><strong id="summary-failed">—</strong></div>
+            </div>
+            <p class="api-message" id="api-message" role="status">네트워크 상태를 불러오는 중입니다.</p>
+          </article>
+        </section>
+      </main>
+      <footer class="app-footer"><span>ROUTE LAB <b>·</b> OSPF RECONVERGENCE SIMULATOR</span><span>실습용 가상 네트워크</span></footer>
+    </div>
+    <script src="https://unpkg.com/cytoscape@3.35.0/dist/cytoscape.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
