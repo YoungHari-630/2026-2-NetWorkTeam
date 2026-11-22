@@ -48,6 +48,12 @@ def test_toggle_unknown_link_returns_404(client: TestClient) -> None:
     assert response.json()["detail"] == "Link 'missing' was not found."
 
 
+def test_toggle_requires_non_empty_link_id(client: TestClient) -> None:
+    response = client.post("/api/links/toggle", json={"link_id": ""})
+
+    assert response.status_code == 422
+
+
 def test_reset_restores_initial_topology(client: TestClient) -> None:
     client.post("/api/links/toggle", json={"link_id": "CD"})
 
@@ -55,6 +61,32 @@ def test_reset_restores_initial_topology(client: TestClient) -> None:
 
     assert response.status_code == 200
     assert all(link["active"] for link in response.json()["links"])
+
+
+def test_link_changes_are_recorded_in_simulation_step_order(client: TestClient) -> None:
+    failed = client.post("/api/links/toggle", json={"link_id": "BD"})
+    restored = client.post("/api/links/toggle", json={"link_id": "BD"})
+
+    assert failed.status_code == restored.status_code == 200
+    events = client.get("/api/simulation/events").json()["events"]
+    assert [event["event_id"] for event in events] == ["E0001", "E0002"]
+    assert [event["step"] for event in events] == [1, 2]
+    assert [event["event_type"] for event in events] == [
+        "link_failed",
+        "link_restored",
+    ]
+    assert [event["new_state"] for event in events] == [False, True]
+    assert all(event["related_link"] == "BD" for event in events)
+
+
+def test_reset_clears_events_and_restores_all_links(client: TestClient) -> None:
+    client.post("/api/links/toggle", json={"link_id": "BD"})
+
+    response = client.post("/api/reset")
+
+    assert response.status_code == 200
+    assert all(link["active"] for link in response.json()["links"])
+    assert client.get("/api/simulation/events").json() == {"events": []}
 
 
 def test_route_endpoint_is_explicitly_not_implemented(client: TestClient) -> None:
@@ -71,3 +103,13 @@ def test_route_endpoint_validates_request_shape(client: TestClient) -> None:
     response = client.post("/api/route", json={"source": "A"})
 
     assert response.status_code == 422
+
+
+def test_route_endpoint_rejects_unknown_routers(client: TestClient) -> None:
+    response = client.post(
+        "/api/route",
+        json={"source": "A", "destination": "missing"},
+    )
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Router 'missing' was not found."

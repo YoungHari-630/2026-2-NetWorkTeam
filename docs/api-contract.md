@@ -1,8 +1,9 @@
 # API and Data Contract
 
 This document is the shared contract for the backend and team feature branches.
-The current implementation includes topology reads, link state toggles, and
-reset. Dijkstra routing and the browser UI are planned work.
+The current implementation includes topology reads, link state toggles,
+simulation-step events, and reset. Dijkstra routing and the browser UI are
+planned work.
 
 ## Topology JSON
 
@@ -33,8 +34,9 @@ Local base URL: `http://127.0.0.1:8000`
 | --- | --- | --- | --- |
 | `GET` | `/api/topology` | None | Returns the full current topology. |
 | `POST` | `/api/links/toggle` | `{"link_id": "AB"}` | Inverts that link's `active` value and returns the full topology. |
-| `POST` | `/api/reset` | None | Restores all routers and links to the startup topology and returns it. |
-| `POST` | `/api/route` | `{"source": "A", "destination": "D"}` | Returns HTTP `501` until Role 2's route calculation is integrated. |
+| `POST` | `/api/reset` | None | Restores the startup topology, clears simulation-step events, and returns the topology. |
+| `GET` | `/api/simulation/events` | None | Returns link failure and recovery events in simulation-step order. |
+| `POST` | `/api/route` | `{"source": "A", "destination": "D"}` | Delegates to Role 2's `shortest_path` when available; otherwise returns HTTP `501`. |
 
 ### Topology response example
 
@@ -70,7 +72,34 @@ eventually return:
 ```
 
 Role 3 should treat `/api/route` as unavailable while it returns `501` and
-handle API errors as described below.
+handle API errors as described below. A well-formed request that names an
+unknown router returns `404`.
+
+### Simulation event response
+
+The event endpoint currently records only user-triggered link state changes;
+it does not simulate LSA propagation or claim real-time convergence data.
+`step` is a monotonically increasing sequence number within the current run.
+`POST /api/reset` clears the events and restarts the step sequence.
+
+```json
+{
+  "events": [
+    {
+      "event_id": "E0001",
+      "step": 1,
+      "event_type": "link_failed",
+      "router_id": null,
+      "source": "B",
+      "destination": "D",
+      "related_link": "BD",
+      "previous_state": true,
+      "new_state": false,
+      "description": "Link BD failed."
+    }
+  ]
+}
+```
 
 ## Role 2 routing interfaces
 
@@ -121,10 +150,12 @@ Route controls can be wired after `/api/route` is implemented.
   `true`). It does not delete the link or change its cost or endpoints.
 - Links are undirected; a link failure removes availability in both directions.
 - Reset restores the exact initial topology, including all links active and
-  original costs.
+  original costs, and clears link event history.
 - The starter server keeps state in process memory. Restarting it also restores
   the initial topology; multi-process persistence is out of scope for this
   foundation.
+- Local browser development origins at `localhost` and `127.0.0.1` are allowed
+  by the API's CORS configuration.
 
 ## Error responses
 
@@ -133,5 +164,6 @@ Errors use FastAPI's JSON `detail` field:
 | Status | Meaning | Example |
 | --- | --- | --- |
 | `404` | Requested link ID does not exist. | `{"detail":"Link 'XY' was not found."}` |
+| `404` | A route request names an unknown router. | `{"detail":"Router 'X' was not found."}` |
 | `422` | Request JSON is missing a required field or has an invalid type/value. | FastAPI validation detail array |
 | `501` | Route calculation has not been implemented yet. | `{"detail":"Route calculation is not implemented yet. Role 2 will provide the routing functions."}` |

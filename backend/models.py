@@ -33,3 +33,32 @@ class LinkToggleRequest(BaseModel):
 class RouteRequest(BaseModel):
     source: str = Field(min_length=1)
     destination: str = Field(min_length=1)
+
+
+class RouteResult(BaseModel):
+    """Result shape expected from the Role 2 shortest-path implementation."""
+
+    source: str
+    destination: str
+    path: list[str]
+    total_cost: int | None
+    reachable: bool
+
+
+class SimulationEvent(BaseModel):
+    """One recorded network state change in simulation-step order."""
+
+    event_id: str
+    step: int
+    event_type: str
+    router_id: str | None = None
+    source: str | None = None
+    destination: str | None = None
+    related_link: str | None = None
+    previous_state: bool | None = None
+    new_state: bool | None = None
+    description: str
+
+
+class SimulationEventList(BaseModel):
+    events: list[SimulationEvent]

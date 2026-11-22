@@ -27,8 +27,9 @@ route reconvergence, and routing tables easier to understand.
 | --- | --- |
 | Shared four-router sample topology | Complete |
 | `GET /api/topology` | Complete |
-| Toggle a link's active/failed state | Complete |
-| Reset to the initial topology | Complete |
+| Toggle a link's active/failed state and record an event | Complete |
+| Reset topology and simulation event state | Complete |
+| `GET /api/simulation/events` | Complete (link changes only) |
 | `POST /api/route` with Dijkstra calculation | Planned (HTTP 501 placeholder) |
 | Routing table generation and algorithm tests | Planned (Role 2) |
 | Browser graph UI and shortest-path highlighting | Planned (Role 3) |
@@ -55,7 +56,7 @@ route reconvergence, and routing tables easier to understand.
 │   ├── models.py
 │   ├── routing/                 # Role 2 algorithm implementation area
 │   └── simulation/
-│       └── link_manager.py
+│       └── link_manager.py       # In-memory state and link event log
 ├── frontend/                    # Role 3 UI implementation area
 ├── data/topologies/basic.json   # Shared canonical sample network
 ├── tests/                       # Backend API and algorithm tests
@@ -78,7 +79,7 @@ before changing shared data or API behavior.
 
 | Role | Responsibility | Branch |
 | --- | --- | --- |
-| Role 1 + Role 4 (Team Lead) | Project coordination, backend/API, link failure and recovery, integration, planned OSPF event simulation | `feat/ospf-simulation` |
+| Role 1 + Role 4 (Team Lead) | Project coordination, backend/API, link failure and recovery, integration, planned OSPF event simulation | `feat/backend-ospf-simulation` |
 | Role 2 | Dijkstra shortest paths, routing table generation, algorithm tests | `feat/dijkstra-routing` |
 | Role 3 | HTML/CSS/JavaScript UI, Cytoscape.js network visualization, path highlighting, user input and API integration | `feat/network-visualization` |
 
@@ -131,9 +132,10 @@ Run the test suite from the repository root:
 python -m pytest
 ```
 
-Current tests cover topology retrieval, link toggling, reset, unknown link
-errors, request validation, and the explicit `501` route placeholder. Dijkstra
-and frontend tests will be added with their planned features.
+Current tests cover topology retrieval, link toggling, event logging, reset,
+unknown link/router errors, request validation, and the explicit `501` route
+placeholder. Dijkstra and frontend tests will be added with their planned
+features.
 
 ## Development Roadmap
 
@@ -143,8 +145,8 @@ and frontend tests will be added with their planned features.
    algorithm tests and connect the route API.
 3. **Role 3:** create the browser interface and graph visualization; connect
    controls to the topology API and highlight calculated paths.
-4. **Role 1+4:** integrate team branches, add simplified LSA propagation and
-   LSDB updates, and demonstrate reconvergence after failures and recovery.
+4. **Role 1+4:** integrate team branches, then add simplified LSA propagation
+   and LSDB updates to the existing link-state event foundation.
 5. **Future:** explore LLM-generated explanations of route changes.
 
 ## GitHub Collaboration Workflow
