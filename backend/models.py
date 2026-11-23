@@ -36,8 +36,8 @@ class RouteRequest(BaseModel):
 
 
 class RouteResult(BaseModel):
-    """Result shape expected from the Role 2 shortest-path implementation."""
 
+class RouteResult(BaseModel):
     source: str
     destination: str
     path: list[str]
@@ -46,8 +46,6 @@ class RouteResult(BaseModel):
 
 
 class SimulationEvent(BaseModel):
-    """One recorded network state change in simulation-step order."""
-
     event_id: str
     step: int
     event_type: str

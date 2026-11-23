@@ -37,6 +37,8 @@ Local base URL: `http://127.0.0.1:8000`
 | `POST` | `/api/reset` | None | Restores the startup topology, clears simulation-step events, and returns the topology. |
 | `GET` | `/api/simulation/events` | None | Returns link failure and recovery events in simulation-step order. |
 | `POST` | `/api/route` | `{"source": "A", "destination": "D"}` | Delegates to Role 2's `shortest_path` when available; otherwise returns HTTP `501`. |
+| `POST` | `/api/reset` | None | Restores all routers and links to the startup topology and returns it. |
+| `POST` | `/api/route` | `{"source": "A", "destination": "D"}` | Returns the shortest valid path and total cost for that source/destination pair. |
 
 ### Topology response example
 
@@ -55,11 +57,9 @@ same topology shape:
 }
 ```
 
-### Route result expected after Role 2 integration
+### Route result contract
 
-This is the expected response contract, **not** an implemented algorithm
-result. With the initial sample network, `POST /api/route` for A to D should
-eventually return:
+With the initial sample network, `POST /api/route` for A to D returns:
 
 ```json
 {
@@ -166,4 +166,4 @@ Errors use FastAPI's JSON `detail` field:
 | `404` | Requested link ID does not exist. | `{"detail":"Link 'XY' was not found."}` |
 | `404` | A route request names an unknown router. | `{"detail":"Router 'X' was not found."}` |
 | `422` | Request JSON is missing a required field or has an invalid type/value. | FastAPI validation detail array |
-| `501` | Route calculation has not been implemented yet. | `{"detail":"Route calculation is not implemented yet. Role 2 will provide the routing functions."}` |
+| `501` | Route calculation is no longer used for this feature; the backend now returns a computed route result on `200` instead. | `Not used for the active route contract.` |

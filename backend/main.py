@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from fastapi import FastAPI, HTTPException
+
 from fastapi.middleware.cors import CORSMiddleware
 
 from backend.models import (
@@ -16,6 +17,7 @@ from backend.models import (
     Topology,
 )
 from backend.simulation.link_manager import LinkManager
+
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -73,36 +75,40 @@ def post_reset() -> dict[str, Any]:
     return link_manager.reset()
 
 
+
 @app.get(
     "/api/simulation/events",
     response_model=SimulationEventList,
     tags=["simulation"],
 )
 def get_simulation_events() -> dict[str, Any]:
-    """Return recorded link failure and recovery events in step order."""
-
+    """Return recorded link events."""
     return {"events": link_manager.get_events()}
 
 
 def _get_shortest_path() -> Callable[..., Any] | None:
-    """Load Role 2's implementation without adding a second algorithm here."""
+    """Load Role 2's Dijkstra implementation."""
 
     module_name = "backend.routing.dijkstra"
+
     try:
         routing_module = importlib.import_module(module_name)
     except ModuleNotFoundError as error:
         if error.name == module_name:
             return None
         raise
+
     return getattr(routing_module, "shortest_path", None)
 
 
 @app.post("/api/route", response_model=RouteResult, tags=["routing"])
 def post_route(request: RouteRequest) -> dict[str, Any]:
-    """Delegate route calculation to Role 2 when its module is available."""
+    """Calculate shortest path using Role 2's algorithm."""
 
     topology = link_manager.get_topology()
+
     router_ids = {router["id"] for router in topology["routers"]}
+
     for router_id in (request.source, request.destination):
         if router_id not in router_ids:
             raise HTTPException(
@@ -111,13 +117,15 @@ def post_route(request: RouteRequest) -> dict[str, Any]:
             )
 
     shortest_path = _get_shortest_path()
+
     if shortest_path is None:
         raise HTTPException(
             status_code=501,
-            detail=(
-                "Route calculation is not implemented yet. "
-                "Role 2 will provide the routing functions."
-            ),
+            detail="Route calculation is not implemented yet.",
         )
 
-    return shortest_path(topology, request.source, request.destination)
+    return shortest_path(
+        topology,
+        request.source,
+        request.destination,
+    )

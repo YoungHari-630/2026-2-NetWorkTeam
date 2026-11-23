@@ -63,12 +63,15 @@ def test_reset_restores_initial_topology(client: TestClient) -> None:
     assert all(link["active"] for link in response.json()["links"])
 
 
+
 def test_link_changes_are_recorded_in_simulation_step_order(client: TestClient) -> None:
     failed = client.post("/api/links/toggle", json={"link_id": "BD"})
     restored = client.post("/api/links/toggle", json={"link_id": "BD"})
 
     assert failed.status_code == restored.status_code == 200
+
     events = client.get("/api/simulation/events").json()["events"]
+
     assert [event["event_id"] for event in events] == ["E0001", "E0002"]
     assert [event["step"] for event in events] == [1, 2]
     assert [event["event_type"] for event in events] == [
@@ -89,14 +92,21 @@ def test_reset_clears_events_and_restores_all_links(client: TestClient) -> None:
     assert client.get("/api/simulation/events").json() == {"events": []}
 
 
-def test_route_endpoint_is_explicitly_not_implemented(client: TestClient) -> None:
+def test_route_endpoint_returns_shortest_path(client: TestClient) -> None:
+
     response = client.post(
         "/api/route",
         json={"source": "A", "destination": "D"},
     )
 
-    assert response.status_code == 501
-    assert "not implemented yet" in response.json()["detail"]
+    assert response.status_code == 200
+    assert response.json() == {
+        "source": "A",
+        "destination": "D",
+        "path": ["A", "B", "D"],
+        "total_cost": 2,
+        "reachable": True,
+    }
 
 
 def test_route_endpoint_validates_request_shape(client: TestClient) -> None:

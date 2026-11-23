@@ -3,7 +3,7 @@
 ## Current foundation
 
 ```text
-Browser UI (Role 3, planned)
+Browser UI (Role 3, initial implementation)
         │ HTTP / JSON
         ▼
 FastAPI application: backend/main.py
@@ -32,6 +32,12 @@ and highlights returned paths once route calculation is available. Role 1+4
 coordinates integration and can extend the current link event log with
 event-by-event LSA propagation, per-router LSDB state, SPF recalculation, and
 reconvergence records. Those Phase 2 behaviors are not yet implemented.
+`backend/routing/`, following [`api-contract.md`](api-contract.md). The API can
+then call `shortest_path(current_topology, source, destination)` for
+`POST /api/route`. Role 3 builds the graph view in `frontend/`, consumes the
+topology endpoints, and highlights returned paths. Until the route endpoint is
+available, the default A-to-D sample is labelled as a preview. Role 1+4
+coordinates integration and later adds OSPF/LSA event simulation.
 
 All links are undirected and have positive integer costs. Inactive links stay
 in the data sent to the UI but are unavailable to route calculations.
