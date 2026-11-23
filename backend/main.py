@@ -7,7 +7,8 @@ from typing import Any
 
 from fastapi import FastAPI, HTTPException
 
-from backend.models import LinkToggleRequest, RouteRequest, Topology
+from backend.models import LinkToggleRequest, RouteRequest, RouteResult, Topology
+from backend.routing import shortest_path
 from backend.simulation.link_manager import reset_topology, toggle_link
 
 
@@ -64,12 +65,8 @@ def post_reset() -> dict[str, Any]:
     return deepcopy(current_topology)
 
 
-@app.post("/api/route", tags=["routing"])
-def post_route(request: RouteRequest) -> None:
-    """Routing API placeholder; Role 2 will connect the Dijkstra module."""
+@app.post("/api/route", response_model=RouteResult, tags=["routing"])
+def post_route(request: RouteRequest) -> dict[str, Any]:
+    """Calculate the shortest valid path between two routers."""
 
-    del request  # Keep request validation active while the feature is planned.
-    raise HTTPException(
-        status_code=501,
-        detail="Route calculation is not implemented yet. Role 2 will provide the routing functions.",
-    )
+    return shortest_path(current_topology, request.source, request.destination)

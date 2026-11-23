@@ -33,3 +33,11 @@ class LinkToggleRequest(BaseModel):
 class RouteRequest(BaseModel):
     source: str = Field(min_length=1)
     destination: str = Field(min_length=1)
+
+
+class RouteResult(BaseModel):
+    source: str
+    destination: str
+    path: list[str]
+    total_cost: int | None = None
+    reachable: bool

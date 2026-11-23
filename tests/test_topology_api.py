@@ -57,14 +57,20 @@ def test_reset_restores_initial_topology(client: TestClient) -> None:
     assert all(link["active"] for link in response.json()["links"])
 
 
-def test_route_endpoint_is_explicitly_not_implemented(client: TestClient) -> None:
+def test_route_endpoint_returns_shortest_path(client: TestClient) -> None:
     response = client.post(
         "/api/route",
         json={"source": "A", "destination": "D"},
     )
 
-    assert response.status_code == 501
-    assert "not implemented yet" in response.json()["detail"]
+    assert response.status_code == 200
+    assert response.json() == {
+        "source": "A",
+        "destination": "D",
+        "path": ["A", "B", "D"],
+        "total_cost": 2,
+        "reachable": True,
+    }
 
 
 def test_route_endpoint_validates_request_shape(client: TestClient) -> None:
