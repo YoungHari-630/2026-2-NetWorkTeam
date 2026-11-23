@@ -1,4 +1,6 @@
-"""Routing algorithms will be implemented by Role 2."""
+"""Routing algorithm interfaces exposed to the backend API."""
 
-# Keep this module free of routing behavior until Role 2 implements the
-# agreed interfaces in docs/api-contract.md.
+from backend.routing.dijkstra import shortest_path
+from backend.routing.routing_table import build_routing_table
+
+__all__ = ["shortest_path", "build_routing_table"]

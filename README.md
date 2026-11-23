@@ -29,8 +29,8 @@ route reconvergence, and routing tables easier to understand.
 | `GET /api/topology` | Complete |
 | Toggle a link's active/failed state | Complete |
 | Reset to the initial topology | Complete |
-| `POST /api/route` with Dijkstra calculation | Planned (HTTP 501 placeholder) |
-| Routing table generation and algorithm tests | Planned (Role 2) |
+| `POST /api/route` with Dijkstra calculation | Complete |
+| Routing table generation and algorithm tests | Complete |
 | Browser graph UI and shortest-path highlighting | Planned (Role 3) |
 | Simplified OSPF LSA/LSDB simulation | Planned (Role 1+4) |
 | LLM-based route-change explanation | Planned |
