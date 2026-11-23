@@ -29,9 +29,11 @@ route reconvergence, and routing tables easier to understand.
 | `GET /api/topology` | Complete |
 | Toggle a link's active/failed state | Complete |
 | Reset to the initial topology | Complete |
+
 | `POST /api/route` with Dijkstra calculation | Complete |
 | Routing table generation and algorithm tests | Complete |
-| Browser graph UI and shortest-path highlighting | Planned (Role 3) |
+| Browser graph UI and route preview | Initial UI complete; API integration pending (Role 3) |
+
 | Simplified OSPF LSA/LSDB simulation | Planned (Role 1+4) |
 | LLM-based route-change explanation | Planned |
 
@@ -120,8 +122,11 @@ python -m uvicorn backend.main:app --reload
 ```
 
 The API is available at `http://127.0.0.1:8000`; interactive documentation is
-at `http://127.0.0.1:8000/docs`. The frontend is not implemented yet. API
-requests and examples are documented in `docs/api-contract.md`.
+at `http://127.0.0.1:8000/docs`. To serve the browser UI, start a second
+terminal at the repository root and run `python -m http.server 5500`, then
+open `http://127.0.0.1:5500/frontend/`. If frontend and API use different
+origins, configure FastAPI CORS for the frontend origin. See
+`docs/ui-test.md` for the manual verification checklist.
 
 ## Testing
 
@@ -141,8 +146,8 @@ and frontend tests will be added with their planned features.
    support topology retrieval, link toggle, and reset.
 2. **Role 2:** implement Dijkstra shortest paths and routing tables, then add
    algorithm tests and connect the route API.
-3. **Role 3:** create the browser interface and graph visualization; connect
-   controls to the topology API and highlight calculated paths.
+3. **Role 3:** initial browser interface and graph visualization are available
+   in `frontend/`; complete API integration and manual checks with the team.
 4. **Role 1+4:** integrate team branches, add simplified LSA propagation and
    LSDB updates, and demonstrate reconvergence after failures and recovery.
 5. **Future:** explore LLM-generated explanations of route changes.

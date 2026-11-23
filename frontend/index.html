@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7f6">
+  <title>라우팅 경로 시뮬레이터</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="라우팅 경로 시뮬레이터" data-i18n-aria="brand">
+        <span class="brand-mark" aria-hidden="true">↔</span><span data-i18n="brand">라우팅 경로 시뮬레이터</span>
+      </a>
+      <div class="header-actions">
+        <button class="language-button" id="language-toggle" type="button" aria-label="Switch to English">English</button>
+        <div class="connection-pill" id="connection-pill" data-state="loading"><span class="connection-dot"></span><span id="connection-label">서버 확인 중</span></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow" data-i18n="eyebrow">OSPF 네트워크 실습</p>
+          <h1 data-i18n="heading">최단 경로를 확인해 보세요</h1>
+          <p class="page-description" data-i18n="description">출발지와 도착지를 고르고 경로를 계산하세요. 선을 선택하면 링크 장애와 복구도 시험할 수 있습니다.</p>
+        </div>
+        <div class="topology-chip"><span data-i18n="topology">기본 네트워크</span><span data-i18n="routerCountChip">라우터 4개</span></div>
+      </section>
+
+      <section class="workspace">
+        <article class="panel topology-panel">
+          <div class="panel-heading">
+            <div><h2 data-i18n="graphTitle">네트워크 연결</h2><p data-i18n="graphHelp">숫자는 각 링크의 비용입니다. 비용이 낮을수록 우선 경로가 됩니다.</p></div>
+            <button class="icon-button" id="fit-button" type="button" title="그래프 전체 보기" aria-label="그래프 전체 보기" data-i18n-aria="fit" data-i18n-title="fit" data-i18n="fit">맞춤</button>
+          </div>
+          <div class="graph-wrap">
+            <div id="cy" role="img" aria-label="라우터와 링크를 표시한 네트워크 그래프" data-i18n-aria="graphAria"></div>
+            <div class="graph-overlay" id="graph-loading" data-i18n="loadingGraph">네트워크를 불러오는 중입니다.</div>
+            <div class="map-legend" aria-label="그래프 범례" data-i18n-aria="legendAria">
+              <span><i class="legend-line active"></i><span data-i18n="legendConnected">연결됨</span></span>
+              <span><i class="legend-line failed"></i><span data-i18n="legendFailed">장애</span></span>
+              <span><i class="legend-line route"></i><span data-i18n="legendRoute">계산된 경로</span></span>
+            </div>
+          </div>
+          <div class="topology-footer">
+            <div class="metric"><span class="metric-icon">○</span><span><b id="router-count">0</b><small data-i18n="routerMetric">라우터</small></span></div>
+            <span class="metric-separator"></span>
+            <div class="metric"><span class="metric-icon link-icon">↔</span><span><b id="active-link-count">0 / 0</b><small data-i18n="linksMetric">사용 가능한 링크</small></span></div>
+            <span class="footer-note" data-i18n="selectLinkHint">링크 선을 눌러 선택하세요.</span>
+          </div>
+        </article>
+
+        <aside class="right-column">
+          <article class="panel route-panel">
+            <div class="panel-heading compact"><div><h2 data-i18n="routeTitle">경로 계산</h2><p data-i18n="routeHelp">경로는 서버에서 계산합니다.</p></div></div>
+            <div class="route-inputs">
+              <label class="select-field"><span data-i18n="sourceLabel">출발지</span><select id="source-select" aria-label="출발지" data-i18n-aria="sourceLabel"></select></label>
+              <span class="route-arrow" aria-hidden="true">→</span>
+              <label class="select-field"><span data-i18n="destinationLabel">도착지</span><select id="destination-select" aria-label="도착지" data-i18n-aria="destinationLabel"></select></label>
+            </div>
+            <button class="primary-button" id="calculate-button" type="button" data-i18n="calculateButton">최단 경로 계산</button>
+            <div class="route-result" id="route-result" aria-live="polite">
+              <div class="result-topline"><strong data-i18n="resultTitle">계산 결과</strong><span class="result-badge" id="result-badge">대기 중</span></div>
+              <div class="result-stat-grid">
+                <div class="result-stat"><span data-i18n="sourceLabel">출발지</span><strong id="result-source">A</strong></div>
+                <div class="result-stat"><span data-i18n="destinationLabel">도착지</span><strong id="result-destination">D</strong></div>
+                <div class="result-stat"><span data-i18n="costLabel">총 비용</span><strong id="result-cost">—</strong></div>
+              </div>
+              <div class="path-block"><span class="sub-label" data-i18n="pathLabel">최단 경로</span><div id="result-path" class="path-value" data-i18n="initialPath">계산 버튼을 누르면 경로가 여기에 표시됩니다.</div></div>
+              <p class="result-note" id="result-note" data-i18n="initialResultNote">예시 경로와 서버 계산 결과를 구분해 표시합니다.</p>
+            </div>
+          </article>
+
+          <article class="panel link-panel">
+            <div class="panel-heading compact">
+              <div><h2 data-i18n="linkControlTitle">링크 장애 및 복구</h2><p data-i18n="linkControlHelp">그래프에서 선을 선택한 다음 상태를 바꾸세요.</p></div>
+              <button class="text-button" id="reset-button" type="button" data-i18n="resetButton">처음 상태로</button>
+            </div>
+            <div class="selected-link-card" id="selected-link-card">
+              <div class="selected-link-icon">↔</div>
+              <div class="selected-link-copy"><span class="sub-label" data-i18n="selectedLinkLabel">선택한 링크</span><strong id="selected-link-name" data-i18n="noLinkSelected">선택된 링크 없음</strong></div>
+              <span class="state-badge" id="selected-link-state">—</span>
+            </div>
+            <button class="secondary-button" id="toggle-link-button" type="button" disabled><span id="toggle-button-label" data-i18n="noLinkButton">링크를 선택하세요</span></button>
+            <p class="control-note" id="control-note" data-i18n="controlHint">장애가 난 링크는 회색 점선으로 표시됩니다.</p>
+          </article>
+        </aside>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel routing-table-panel">
+          <div class="panel-heading compact"><div><h2 data-i18n="tableTitle">라우팅 표</h2><p data-i18n="tableHelp">라우터별 다음 경로와 비용을 표시할 영역입니다.</p></div><span class="coming-soon" data-i18n="comingSoon">추가 예정</span></div>
+          <div class="table-placeholder"><span class="placeholder-icon" data-i18n="tableIcon">표</span><span data-i18n="tablePlaceholder">라우팅 표는 다음 단계에서 연결합니다.</span></div>
+        </article>
+        <article class="panel status-panel">
+          <div class="panel-heading compact"><div><h2 data-i18n="statusTitle">네트워크 상태</h2><p id="api-message" role="status">네트워크 상태를 불러오는 중입니다.</p></div></div>
+          <div class="status-summary">
+            <div><span class="summary-label" data-i18n="activeLinks">활성 링크</span><strong id="summary-active">—</strong></div>
+            <div><span class="summary-label" data-i18n="failedLinks">장애 링크</span><strong id="summary-failed">—</strong></div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="app-footer"><span data-i18n="footerTitle">OSPF 기반 라우팅 재수렴 시뮬레이터</span><span data-i18n="footerSubtitle">실습용 가상 네트워크</span></footer>
+  </div>
+  <script src="https://unpkg.com/cytoscape@3.35.0/dist/cytoscape.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
