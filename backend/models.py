@@ -36,8 +36,27 @@ class RouteRequest(BaseModel):
 
 
 class RouteResult(BaseModel):
+
+class RouteResult(BaseModel):
     source: str
     destination: str
     path: list[str]
-    total_cost: int | None = None
+    total_cost: int | None
     reachable: bool
+
+
+class SimulationEvent(BaseModel):
+    event_id: str
+    step: int
+    event_type: str
+    router_id: str | None = None
+    source: str | None = None
+    destination: str | None = None
+    related_link: str | None = None
+    previous_state: bool | None = None
+    new_state: bool | None = None
+    description: str
+
+
+class SimulationEventList(BaseModel):
+    events: list[SimulationEvent]
