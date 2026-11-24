@@ -36,8 +36,6 @@ class RouteRequest(BaseModel):
 
 
 class RouteResult(BaseModel):
-
-class RouteResult(BaseModel):
     source: str
     destination: str
     path: list[str]
