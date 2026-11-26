@@ -88,4 +88,4 @@ Open `http://127.0.0.1:5500/frontend/`.
 
 ## Git handoff
 
-Changes are on `feature/phase2-frontend`, based on updated `main`. The branch was pushed to `origin`. A pull request has not been created yet; the GitHub integration returned HTTP 403, and the browser session is signed out.
+Changes are on `feature/phase2-frontend`, based on updated `main` and pushed to `origin`. [Pull request #5](https://github.com/YoungHari-630/2026-2-NetWorkTeam/pull/5) is open for review.
