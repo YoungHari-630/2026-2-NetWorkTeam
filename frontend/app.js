@@ -1,7 +1,6 @@
 /* global cytoscape */
 "use strict";
 
-const API_BASE = "http://127.0.0.1:8000";
 const I18N = {
   ko: {
     title: "라우팅 경로 시뮬레이터", brand: "라우팅 경로 시뮬레이터",
@@ -186,31 +185,7 @@ function copyTopology(topology) {
 }
 
 async function requestJson(path, options = {}) {
-  const controller = new AbortController();
-  const timeoutId = window.setTimeout(() => controller.abort(), 5000);
-  try {
-    const response = await fetch(API_BASE + path, {
-      ...options,
-      signal: controller.signal,
-      headers: {
-        ...(options.body ? { "Content-Type": "application/json" } : {}),
-        ...options.headers,
-      },
-    });
-    let body;
-    try { body = await response.json(); } catch { body = {}; }
-    if (!response.ok) {
-      const error = new Error(body.detail || "HTTP " + response.status);
-      error.status = response.status;
-      throw error;
-    }
-    return body;
-  } catch (error) {
-    if (error.name === "AbortError") throw new Error(t("networkError"));
-    throw error;
-  } finally {
-    window.clearTimeout(timeoutId);
-  }
+  return NetworkApi.request(path, options, () => t("networkError"));
 }
 
 function friendlyNetworkError(error) {
@@ -326,7 +301,8 @@ function createGraph() {
       { selector: "edge.inactive", style: { "line-color": "#a4ada9", "line-style": "dashed", color: "#69746f", opacity: 0.7 } },
       { selector: "edge.selected-link", style: { "line-color": "#d78424", width: 3, "z-index": 5, color: "#7a4a14" } },
       { selector: "edge.route", style: {
-        "line-color": "#177a5b", width: 5, "z-index": 10, color: "#ffffff",
+        "line-color": "#177a5b", width: 5, "z-index": 10, color: "#174b39",
+        "text-background-color": "#e8f4ed", "text-border-color": "#177a5b",
         "shadow-blur": 3, "shadow-color": "#177a5b", "shadow-opacity": 0.2,
       } },
       { selector: "node.route-node", style: {

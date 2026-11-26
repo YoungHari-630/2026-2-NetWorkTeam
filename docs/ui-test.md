@@ -1,33 +1,32 @@
-# 역할 3 UI 수동 확인
+# Role 3 browser verification
 
-## 로컬 실행
+Run the frontend from the repository root using `python -m http.server 5500`
+and the API with `python -m uvicorn backend.main:app --reload`. Open
+`http://127.0.0.1:5500/frontend/`.
 
-저장소 루트에서 백엔드를 실행합니다.
+## Browser results
 
-    python -m uvicorn backend.main:app --reload
-
-다른 터미널에서 저장소 루트를 웹 서버로 실행합니다.
-
-    python -m http.server 5500
-
-브라우저에서 http://127.0.0.1:5500/frontend/ 를 엽니다. 화면과 API의 출처가 다르면 FastAPI의 CORS 설정에 화면 출처를 허용해야 합니다.
-
-## 확인 항목
-
-| 항목 | 기대 결과 | 상태 |
+| Check | Result | Data source |
 | --- | --- | --- |
-| 언어 전환 | English를 누르면 화면이 영어로, 한국어를 누르면 한국어로 바뀜 | 브라우저 확인 필요 |
-| 기본 그래프 | A, B, C, D 라우터와 링크 4개가 표시됨 | 새 디자인에서 재확인 필요 |
-| 링크 비용 | AB=1, AC=2, BD=1, CD=3으로 표시됨 | 새 디자인에서 재확인 필요 |
-| 출발지와 도착지 | 선택 가능하고 기본값은 A와 D | 새 디자인에서 재확인 필요 |
-| 예시 경로 | API 준비 전에는 A → B → D를 예시 경로로 구분해 표시 | 새 디자인에서 재확인 필요 |
-| 실제 최단 경로 | 역할 2 API 연결 시 A → B → D와 총 비용 2 표시 | 역할 2 API 필요 |
-| 링크 장애·복구 | 선 선택 후 /api/links/toggle 호출 | 백엔드와 CORS 연결 필요 |
-| 장애 링크 표시 | 회색 점선으로 표시되고 경로에서 제외 | 새 디자인에서 재확인 필요 |
-| 도달 불가 경로 | 경로 없음으로 안내하고 그래프는 계속 표시 | 역할 2 API 필요 |
-| 오류 안내 | 연결 오류를 한국어로 표시 | 새 디자인에서 재확인 필요 |
-| 초기화 | /api/reset 호출 후 기본 상태 복원 | 백엔드와 CORS 연결 필요 |
+| 4-router initial topology and route A → B → D, cost 2 | Pass | Live API |
+| Per-router routing table, including next hop/full path | Pass | Live `/api/route` |
+| Link AB failure and recovery; route changes while failed | Pass | Live toggle/route/events APIs |
+| Event ordering and next-event playback | Pass | Live link event log |
+| 8-router and 12-router graph/options/link counts | Pass (8/12 routers, 12/18 links) | Local mock presets |
+| Custom topology, add 2 routers and a weighted link | Pass | Local mock adapter |
+| Import starter topology JSON and export current topology JSON | Pass | Local file import/browser download |
+| Korean/English switch | Pass | Browser UI |
+| LSDB mock label and data separation note | Pass | Local projection; not OSPF state |
+| Unsupported route for local mock topologies | Pass (explained in UI) | No route calculation fabricated |
+| API unavailable state | Pass | Browser loaded while server was unavailable |
+| Browser Console errors | None observed | Browser developer log |
 
-## 스크린샷
+The link failure test created two records (`link_failed`, `link_restored`); the
+API reset endpoint was called afterward and the test events were cleared.
+The 8/12-router and custom topology tests used only local mock data. No browser
+test claimed LSA flooding, independent router LSDBs, or OSPF convergence; those
+APIs do not exist yet. Back/seek is not offered because there are no snapshots.
 
-이전 어두운 화면 캡처는 새 디자인과 달라 제거했습니다. 새 화면을 브라우저에서 확인한 뒤 docs/screenshots/network-ui.png에 다시 저장해야 합니다.
+The final UI screenshot was captured during browser verification in the Codex
+task. Browser automation provided an inline capture; no image file was written
+into `docs/screenshots/` in this environment.

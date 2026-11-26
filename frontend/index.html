@@ -33,7 +33,7 @@
         <article class="panel topology-panel">
           <div class="panel-heading">
             <div><h2 data-i18n="graphTitle">네트워크 연결</h2><p data-i18n="graphHelp">숫자는 각 링크의 비용입니다. 비용이 낮을수록 우선 경로가 됩니다.</p></div>
-            <button class="icon-button" id="fit-button" type="button" title="그래프 전체 보기" aria-label="그래프 전체 보기" data-i18n-aria="fit" data-i18n-title="fit" data-i18n="fit">맞춤</button>
+            <div class="graph-controls"><button class="icon-button" id="zoom-out" type="button" title="축소" aria-label="축소">−</button><button class="icon-button" id="zoom-in" type="button" title="확대" aria-label="확대">+</button><button class="icon-button" id="fit-button" type="button" title="그래프 전체 보기" aria-label="그래프 전체 보기" data-i18n-aria="fit" data-i18n-title="fit" data-i18n="fit">맞춤</button></div>
           </div>
           <div class="graph-wrap">
             <div id="cy" role="img" aria-label="라우터와 링크를 표시한 네트워크 그래프" data-i18n-aria="graphAria"></div>
@@ -90,10 +90,6 @@
       </section>
 
       <section class="bottom-grid">
-        <article class="panel routing-table-panel">
-          <div class="panel-heading compact"><div><h2 data-i18n="tableTitle">라우팅 표</h2><p data-i18n="tableHelp">라우터별 다음 경로와 비용을 표시할 영역입니다.</p></div><span class="coming-soon" data-i18n="comingSoon">추가 예정</span></div>
-          <div class="table-placeholder"><span class="placeholder-icon" data-i18n="tableIcon">표</span><span data-i18n="tablePlaceholder">라우팅 표는 다음 단계에서 연결합니다.</span></div>
-        </article>
         <article class="panel status-panel">
           <div class="panel-heading compact"><div><h2 data-i18n="statusTitle">네트워크 상태</h2><p id="api-message" role="status">네트워크 상태를 불러오는 중입니다.</p></div></div>
           <div class="status-summary">
@@ -102,10 +98,49 @@
           </div>
         </article>
       </section>
+
+      <section class="phase2-grid" aria-label="Advanced network tools">
+        <article class="panel phase2-panel topology-tools">
+          <div class="panel-heading compact"><div><h2 data-p2="topologyTitle">Topology editor</h2><p data-p2="topologyHelp">Choose a preset or edit a local topology.</p></div><span class="mode-badge" id="data-mode">API</span></div>
+          <div class="editor-row"><label><span data-p2="preset">Topology</span><select id="topology-preset"><option value="basic">Basic · 4 routers</option><option value="medium">Medium · 8 routers</option><option value="large">Complex · 12 routers</option><option value="custom">Custom</option></select></label><button class="secondary-button compact-button" id="export-topology" type="button" data-p2="export">Export JSON</button></div>
+          <div class="editor-row"><label><span data-p2="routerId">Router ID</span><input id="router-id-input" maxlength="24" placeholder="R5"></label><button class="secondary-button compact-button" id="add-router" type="button" data-p2="addRouter">Add router</button><button class="secondary-button compact-button danger-text" id="delete-router" type="button" data-p2="deleteRouter">Delete selected</button></div>
+          <div class="editor-row link-editor"><label><span data-p2="source">Source</span><select id="link-source"></select></label><label><span data-p2="target">Target</span><select id="link-target"></select></label><label><span data-p2="cost">Cost</span><input id="link-cost" type="number" min="1" step="1" value="1"></label></div>
+          <div class="editor-row"><label><span data-p2="linkId">Link ID (delete)</span><select id="link-choice"></select></label><button class="secondary-button compact-button" id="add-link" type="button" data-p2="addLink">Add / update link</button><button class="secondary-button compact-button danger-text" id="delete-link" type="button" data-p2="deleteLink">Delete link</button></div>
+          <div class="editor-row"><button class="secondary-button compact-button" id="clear-topology" type="button" data-p2="clear">Reset topology</button><label class="file-button"><span data-p2="import">Import JSON</span><input id="import-topology" type="file" accept="application/json,.json"></label></div>
+          <p class="phase2-message" id="editor-message" role="status"></p>
+        </article>
+        <article class="panel phase2-panel routing-tools">
+          <div class="panel-heading compact"><div><h2 data-p2="routingTitle">Routing table</h2><p data-p2="routingHelp">Routes are requested from the active backend.</p></div></div>
+          <label class="inline-select"><span data-p2="router">Router</span><select id="table-router"></select></label>
+          <div class="table-scroll"><table><thead><tr><th data-p2="destination">Destination</th><th data-p2="nextHop">Next hop</th><th data-p2="totalCost">Total cost</th><th data-p2="path">Full path</th><th data-p2="reachability">Reachability</th></tr></thead><tbody id="routing-rows"><tr><td colspan="5">Select a router.</td></tr></tbody></table></div>
+          <p class="phase2-message" id="routing-message" role="status"></p>
+        </article>
+        <article class="panel phase2-panel event-tools">
+          <div class="panel-heading compact"><div><h2 data-p2="eventsTitle">Event log</h2><p data-p2="eventsHelp">Backend recorded events; playback speed only affects display.</p></div><span class="mode-badge" id="event-mode">API</span></div>
+          <div class="editor-row event-filters"><label><span data-p2="eventType">Event type</span><select id="event-filter"><option value="all">All</option></select></label><label><span data-p2="router">Router</span><select id="event-router-filter"><option value="all">All</option></select></label></div>
+          <div class="simulation-controls"><button class="secondary-button compact-button" id="play-events" type="button" data-p2="play">Play</button><button class="secondary-button compact-button" id="pause-events" type="button" data-p2="pause">Pause</button><button class="secondary-button compact-button" id="next-event" type="button" data-p2="next">Next event</button><label><span data-p2="speed">Display speed</span><select id="play-speed"><option value="1500">0.5×</option><option value="750" selected>1×</option><option value="250">2×</option></select></label></div>
+          <div class="sim-status"><span id="sim-clock">t = 0 steps</span><strong id="convergence-state">—</strong><span id="current-event">—</span></div>
+          <ol class="event-list" id="event-list" aria-live="polite"></ol>
+        </article>
+        <article class="panel phase2-panel lsdb-tools">
+          <div class="panel-heading compact"><div><h2 data-p2="lsdbTitle">Router LSDB</h2><p data-p2="lsdbHelp">Physical links and router knowledge are shown separately.</p></div><span class="mode-badge mock-badge" data-p2="mock">Mock</span></div>
+          <label class="inline-select"><span data-p2="router">Router</span><select id="lsdb-router"></select></label>
+          <div class="table-scroll"><table><thead><tr><th data-p2="origin">LSA origin</th><th data-p2="sequence">Sequence</th><th data-p2="advertisedLinks">Advertised links</th><th data-p2="statusCost">Status / cost</th><th data-p2="updated">Last updated</th></tr></thead><tbody id="lsdb-rows"></tbody></table></div>
+          <p class="phase2-message" data-p2="lsdbMockNote">Mock projection from the local topology. Per-router LSDB API is not available.</p>
+        </article>
+        <article class="panel phase2-panel diagnostic-tools">
+          <div class="panel-heading compact"><div><h2 data-p2="diagnosticTitle">Kimi fault diagnosis</h2><span class="mode-badge mock-badge" data-p2="unconnected">API not connected</span></div></div>
+          <p class="diagnostic-note" data-p2="diagnosticNote">This area is ready to render a future diagnosis payload. No diagnosis is being generated.</p>
+          <dl class="diagnostic-fields"><dt data-p2="faultType">Fault type</dt><dd id="diagnosis-type">—</dd><dt data-p2="faultLocation">Location</dt><dd id="diagnosis-location">—</dd><dt data-p2="evidence">Evidence</dt><dd id="diagnosis-evidence">—</dd><dt data-p2="moreInfo">More information needed</dt><dd id="diagnosis-more-info">—</dd><dt data-p2="uncertainty">Uncertainty</dt><dd id="diagnosis-uncertainty">—</dd><dt data-p2="recovery">Recovery suggestion</dt><dd id="diagnosis-recovery">—</dd></dl>
+        </article>
+      </section>
     </main>
     <footer class="app-footer"><span data-i18n="footerTitle">OSPF 기반 라우팅 재수렴 시뮬레이터</span><span data-i18n="footerSubtitle">실습용 가상 네트워크</span></footer>
   </div>
   <script src="https://unpkg.com/cytoscape@3.35.0/dist/cytoscape.min.js"></script>
+  <script src="./api-adapter.js"></script>
+  <script src="./mock-adapter.js"></script>
   <script src="./app.js"></script>
+  <script src="./phase2.js"></script>
 </body>
 </html>

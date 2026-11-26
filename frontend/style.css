@@ -127,3 +127,46 @@ select:focus, button:focus-visible { outline: 2px solid #26856655; outline-offse
 }.header-actions { display: flex; align-items: center; gap: 8px; }
 .language-button { min-height: 32px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 5px; background: #fff; color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; }
 .language-button:hover { border-color: #9bb8aa; color: var(--green); }
+.phase2-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top: 16px; }
+.graph-controls { display: flex; gap: 5px; }
+.graph-controls .icon-button { min-width: 34px; }
+.phase2-panel { min-width: 0; padding-bottom: 14px; }
+.mode-badge { padding: 3px 7px; border-radius: 4px; background: #e5f2eb; color: var(--green); font-size: 10px; white-space: nowrap; }
+.mock-badge { background: #fff3df; color: #96621e; }
+.editor-row { display: flex; align-items: end; gap: 8px; margin: 0 16px 9px; }
+.editor-row > label { flex: 1; min-width: 0; }
+.editor-row label > span,.inline-select > span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 10px; }
+.editor-row input,.editor-row select,.inline-select select { width: 100%; height: 32px; min-width: 0; padding: 0 7px; border: 1px solid #cbd8d1; border-radius: 4px; background: #fff; color: var(--text); font-size: 11px; }
+.compact-button { width: auto; min-height: 32px; margin: 0; padding: 5px 8px; font-size: 10px; white-space: nowrap; }
+.danger-text { color: #a44242; }
+.file-button { display: inline-flex; align-items: center; justify-content: center; min-height: 32px; padding: 5px 9px; border: 1px solid #cbd8d1; border-radius: 4px; color: var(--text); background: white; font-size: 10px; cursor: pointer; }
+.file-button input { display: none; }
+.phase2-message { min-height: 14px; margin: 4px 16px 0; color: var(--muted); font-size: 10px; }
+.phase2-message[data-error="true"] { color: #b33c3c; }
+.inline-select { display: block; margin: 0 16px 9px; }
+.inline-select select { max-width: 150px; }
+.table-scroll { max-height: 270px; overflow: auto; margin: 0 16px; border: 1px solid var(--border); border-radius: 5px; }
+.table-scroll table { width: 100%; border-collapse: collapse; font-size: 10px; }
+.table-scroll th,.table-scroll td { padding: 7px 6px; border-bottom: 1px solid #e7ece9; text-align: left; vertical-align: top; white-space: pre-wrap; }
+.table-scroll th { position: sticky; top: 0; background: #f2f6f4; color: #53635b; font-weight: 700; }
+.reachable-cell { color: var(--green); font-weight: 700; }
+.unreachable-cell { color: #b33c3c; font-weight: 700; }
+.event-filters { margin-bottom: 8px; }
+.simulation-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 7px; margin: 0 16px 9px; }
+.simulation-controls label { margin-left: auto; }
+.simulation-controls label span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 10px; }
+.simulation-controls select { height: 32px; border: 1px solid #cbd8d1; border-radius: 4px; background: white; }
+.sim-status { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 16px 8px; color: var(--muted); font-size: 10px; }
+.sim-status strong { color: var(--green); }
+.event-list { display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow: auto; margin: 0 16px; padding: 0; list-style: none; }
+.event-entry { display: flex; flex-direction: column; gap: 2px; padding: 7px 8px; border: 1px solid #e2e9e5; border-radius: 4px; font-size: 10px; }
+.event-entry strong { color: var(--text); }
+.event-entry span { color: var(--muted); }
+.empty-row { padding: 10px; color: var(--muted); font-size: 10px; }
+.diagnostic-note { margin: 0 16px 10px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+.diagnostic-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; margin: 0 16px; font-size: 10px; }
+.diagnostic-fields dt { color: var(--muted); }.diagnostic-fields dd { margin: 0; font-weight: 600; }
+#cy .selected-router { border-color: #d78424; border-width: 4; shadow-color: #d78424; shadow-opacity: .35; }
+#cy .event-focus { line-color: #8054bd; width: 5; line-style: dashed; z-index: 12; }
+@media (max-width: 900px) { .phase2-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .editor-row { flex-wrap: wrap; } .editor-row > label { min-width: 90px; } .link-editor label { flex: 1 1 28%; } .compact-button { flex: 1 1 auto; } }

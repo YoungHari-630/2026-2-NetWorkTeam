@@ -1,8 +1,10 @@
 # Frontend
 
 Role 3's browser interface uses plain HTML, CSS, JavaScript, and Cytoscape.js.
-It displays the shared topology, link costs and states, route controls, and
-link failure/recovery controls. It does not implement Dijkstra in JavaScript.
+It includes dynamic 4/8/12-router topologies, a local topology editor, routing
+table, backend link-event log/playback, an explicitly mock LSDB projection, and
+a Kimi diagnosis payload display hook. It does not implement Dijkstra or OSPF
+in JavaScript.
 
 ## Run locally
 
@@ -20,5 +22,13 @@ toggle, and reset requests. If the frontend and API use different origins,
 FastAPI must allow the frontend origin through CORS. Before the route API is
 available, the default A-to-D result is labelled as an example preview.
 
-See ../docs/api-contract.md for the topology schema, API examples, and error
-responses. See ../docs/ui-test.md for the manual verification checklist.
+The 4-router topology uses the live API. The 8/12-router presets, custom
+topologies, and imported/edited JSON use `mock-adapter.js` until a topology
+mutation API exists. The UI marks those views as local mock and does not send
+route requests for them. The LSDB panel is also a mock projection; no LSA/SPF
+animation is presented as a real OSPF run.
+
+See [../docs/api-contract.md](../docs/api-contract.md) for the current API and
+[../docs/frontend/phase2-api-needs.md](../docs/frontend/phase2-api-needs.md)
+for the requested backend handoff. See [../docs/ui-test.md](../docs/ui-test.md)
+for browser verification notes.
