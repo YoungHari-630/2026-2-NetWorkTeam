@@ -88,6 +88,4 @@ Open `http://127.0.0.1:5500/frontend/`.
 
 ## Git handoff
 
-Changes are on `feature/phase2-frontend`, based on updated `main`. No push or
-pull request was created: the project instruction requires a teammate's
-approval before pushing, and that approval was not present in this task.
+Changes are on `feature/phase2-frontend`, based on updated `main`. The branch was pushed to `origin`. A pull request has not been created yet; the GitHub integration returned HTTP 403, and the browser session is signed out.
