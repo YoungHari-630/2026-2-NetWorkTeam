@@ -40,7 +40,7 @@ route reconvergence, and routing tables easier to understand.
 | Routing table generation and algorithm tests | Complete |
 | Browser graph UI and route preview | Initial UI complete; API integration pending (Role 3) |
 
-| Simplified OSPF LSA/LSDB simulation | Planned (Role 1+4) |
+| Simplified OSPF LSA/LSDB simulation engine (`backend/ospf/`) | Engine complete; REST integration pending (team lead) — see [`docs/ospf/`](docs/ospf/README.md) |
 | LLM-based route-change explanation | Planned |
 
 ## Technology Stack
@@ -61,15 +61,17 @@ route reconvergence, and routing tables easier to understand.
 │   ├── __init__.py
 │   ├── main.py
 │   ├── models.py
+│   ├── ospf/                    # Phase 2 OSPF reconvergence simulation engine
 │   ├── routing/                 # Role 2 algorithm implementation area
 │   └── simulation/
 │       └── link_manager.py       # In-memory state and link event log
 ├── frontend/                    # Role 3 UI implementation area
-├── data/topologies/basic.json   # Shared canonical sample network
+├── data/topologies/            # basic.json (canonical), ring8.json, mesh12.json
 ├── tests/                       # Backend API and algorithm tests
 ├── docs/
 │   ├── api-contract.md
 │   ├── architecture.md
+│   ├── ospf/                    # OSPF engine design, interface, data formats, examples
 │   └── progress/
 ├── .gitignore
 ├── requirements.txt
@@ -146,6 +148,9 @@ Current tests cover topology retrieval, link toggling, event logging, reset,
 unknown link/router errors, request validation, and the explicit `501` route
 placeholder. Dijkstra and frontend tests will be added with their planned
 features.
+
+OSPF simulation tests live in `tests/test_ospf_*.py`. To watch a
+reconvergence trace, run `python -m backend.ospf.demo`.
 
 ## Development Roadmap
 

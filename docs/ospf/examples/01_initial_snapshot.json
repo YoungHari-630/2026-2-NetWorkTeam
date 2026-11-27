@@ -1,0 +1,596 @@
+{
+  "time": 0,
+  "config": {
+    "detection_delay": 0,
+    "transmission_delay": 1,
+    "link_delays": {},
+    "spf_delay": 0,
+    "max_events": 100000
+  },
+  "topology": {
+    "routers": [
+      {
+        "id": "A"
+      },
+      {
+        "id": "B"
+      },
+      {
+        "id": "C"
+      },
+      {
+        "id": "D"
+      }
+    ],
+    "links": [
+      {
+        "id": "AB",
+        "source": "A",
+        "target": "B",
+        "cost": 1,
+        "active": true
+      },
+      {
+        "id": "AC",
+        "source": "A",
+        "target": "C",
+        "cost": 2,
+        "active": true
+      },
+      {
+        "id": "BD",
+        "source": "B",
+        "target": "D",
+        "cost": 1,
+        "active": true
+      },
+      {
+        "id": "CD",
+        "source": "C",
+        "target": "D",
+        "cost": 3,
+        "active": true
+      }
+    ]
+  },
+  "lsdbs": {
+    "A": {
+      "router_id": "A",
+      "version": 4,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    "B": {
+      "router_id": "B",
+      "version": 4,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    "C": {
+      "router_id": "C",
+      "version": 4,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    "D": {
+      "router_id": "D",
+      "version": 4,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "routing_tables": {
+    "A": {
+      "A": {
+        "destination": "A",
+        "next_hop": null,
+        "path": [
+          "A"
+        ],
+        "cost": 0,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": "B",
+        "path": [
+          "A",
+          "B"
+        ],
+        "cost": 1,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": "C",
+        "path": [
+          "A",
+          "C"
+        ],
+        "cost": 2,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": "B",
+        "path": [
+          "A",
+          "B",
+          "D"
+        ],
+        "cost": 2,
+        "reachable": true
+      }
+    },
+    "B": {
+      "A": {
+        "destination": "A",
+        "next_hop": "A",
+        "path": [
+          "B",
+          "A"
+        ],
+        "cost": 1,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": null,
+        "path": [
+          "B"
+        ],
+        "cost": 0,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": "A",
+        "path": [
+          "B",
+          "A",
+          "C"
+        ],
+        "cost": 3,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": "D",
+        "path": [
+          "B",
+          "D"
+        ],
+        "cost": 1,
+        "reachable": true
+      }
+    },
+    "C": {
+      "A": {
+        "destination": "A",
+        "next_hop": "A",
+        "path": [
+          "C",
+          "A"
+        ],
+        "cost": 2,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": "A",
+        "path": [
+          "C",
+          "A",
+          "B"
+        ],
+        "cost": 3,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": null,
+        "path": [
+          "C"
+        ],
+        "cost": 0,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": "D",
+        "path": [
+          "C",
+          "D"
+        ],
+        "cost": 3,
+        "reachable": true
+      }
+    },
+    "D": {
+      "A": {
+        "destination": "A",
+        "next_hop": "B",
+        "path": [
+          "D",
+          "B",
+          "A"
+        ],
+        "cost": 2,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": "B",
+        "path": [
+          "D",
+          "B"
+        ],
+        "cost": 1,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": "C",
+        "path": [
+          "D",
+          "C"
+        ],
+        "cost": 3,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": null,
+        "path": [
+          "D"
+        ],
+        "cost": 0,
+        "reachable": true
+      }
+    }
+  },
+  "pending_events": [],
+  "event_history": [
+    {
+      "record_id": 1,
+      "time": 0,
+      "event_type": "simulation_initialized",
+      "router_id": null,
+      "caused_by": null,
+      "description": "Simulation initialized with 4 routers and 4 links.",
+      "details": {
+        "router_count": 4,
+        "link_count": 4,
+        "converged": true
+      }
+    }
+  ],
+  "convergence": {
+    "converged": true,
+    "status": "converged",
+    "pending_protocol_events": 0,
+    "relevant_pending_events": 0,
+    "reasons": [],
+    "current_episode_started_at": null,
+    "last_change_time": null,
+    "last_converged_time": 0,
+    "reconvergence_episodes": []
+  },
+  "partition": {
+    "partitioned": false,
+    "component_count": 1,
+    "components": [
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    ],
+    "isolated_routers": []
+  }
+}

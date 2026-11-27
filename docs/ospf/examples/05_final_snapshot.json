@@ -1,0 +1,1239 @@
+{
+  "time": 3,
+  "config": {
+    "detection_delay": 0,
+    "transmission_delay": 1,
+    "link_delays": {},
+    "spf_delay": 0,
+    "max_events": 100000
+  },
+  "topology": {
+    "routers": [
+      {
+        "id": "A"
+      },
+      {
+        "id": "B"
+      },
+      {
+        "id": "C"
+      },
+      {
+        "id": "D"
+      }
+    ],
+    "links": [
+      {
+        "id": "AB",
+        "source": "A",
+        "target": "B",
+        "cost": 1,
+        "active": true
+      },
+      {
+        "id": "AC",
+        "source": "A",
+        "target": "C",
+        "cost": 2,
+        "active": true
+      },
+      {
+        "id": "BD",
+        "source": "B",
+        "target": "D",
+        "cost": 1,
+        "active": false
+      },
+      {
+        "id": "CD",
+        "source": "C",
+        "target": "D",
+        "cost": 3,
+        "active": true
+      }
+    ]
+  },
+  "lsdbs": {
+    "A": {
+      "router_id": "A",
+      "version": 6,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": false
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": false
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    "B": {
+      "router_id": "B",
+      "version": 6,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": false
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": false
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    "C": {
+      "router_id": "C",
+      "version": 6,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": false
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": false
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    "D": {
+      "router_id": "D",
+      "version": 6,
+      "lsas": [
+        {
+          "origin_router_id": "A",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "AC",
+              "neighbor_id": "C",
+              "cost": 2,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "B",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": false
+            }
+          ]
+        },
+        {
+          "origin_router_id": "C",
+          "sequence_number": 1,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AC",
+              "neighbor_id": "A",
+              "cost": 2,
+              "active": true
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "D",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        {
+          "origin_router_id": "D",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": false
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "routing_tables": {
+    "A": {
+      "A": {
+        "destination": "A",
+        "next_hop": null,
+        "path": [
+          "A"
+        ],
+        "cost": 0,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": "B",
+        "path": [
+          "A",
+          "B"
+        ],
+        "cost": 1,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": "C",
+        "path": [
+          "A",
+          "C"
+        ],
+        "cost": 2,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": "C",
+        "path": [
+          "A",
+          "C",
+          "D"
+        ],
+        "cost": 5,
+        "reachable": true
+      }
+    },
+    "B": {
+      "A": {
+        "destination": "A",
+        "next_hop": "A",
+        "path": [
+          "B",
+          "A"
+        ],
+        "cost": 1,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": null,
+        "path": [
+          "B"
+        ],
+        "cost": 0,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": "A",
+        "path": [
+          "B",
+          "A",
+          "C"
+        ],
+        "cost": 3,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": "A",
+        "path": [
+          "B",
+          "A",
+          "C",
+          "D"
+        ],
+        "cost": 6,
+        "reachable": true
+      }
+    },
+    "C": {
+      "A": {
+        "destination": "A",
+        "next_hop": "A",
+        "path": [
+          "C",
+          "A"
+        ],
+        "cost": 2,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": "A",
+        "path": [
+          "C",
+          "A",
+          "B"
+        ],
+        "cost": 3,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": null,
+        "path": [
+          "C"
+        ],
+        "cost": 0,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": "D",
+        "path": [
+          "C",
+          "D"
+        ],
+        "cost": 3,
+        "reachable": true
+      }
+    },
+    "D": {
+      "A": {
+        "destination": "A",
+        "next_hop": "C",
+        "path": [
+          "D",
+          "C",
+          "A"
+        ],
+        "cost": 5,
+        "reachable": true
+      },
+      "B": {
+        "destination": "B",
+        "next_hop": "C",
+        "path": [
+          "D",
+          "C",
+          "A",
+          "B"
+        ],
+        "cost": 6,
+        "reachable": true
+      },
+      "C": {
+        "destination": "C",
+        "next_hop": "C",
+        "path": [
+          "D",
+          "C"
+        ],
+        "cost": 3,
+        "reachable": true
+      },
+      "D": {
+        "destination": "D",
+        "next_hop": null,
+        "path": [
+          "D"
+        ],
+        "cost": 0,
+        "reachable": true
+      }
+    }
+  },
+  "pending_events": [],
+  "event_history": [
+    {
+      "record_id": 1,
+      "time": 0,
+      "event_type": "simulation_initialized",
+      "router_id": null,
+      "caused_by": null,
+      "description": "Simulation initialized with 4 routers and 4 links.",
+      "details": {
+        "router_count": 4,
+        "link_count": 4,
+        "converged": true
+      }
+    },
+    {
+      "record_id": 2,
+      "time": 0,
+      "event_type": "link_failure",
+      "router_id": null,
+      "caused_by": "E00001",
+      "description": "Link BD (B-D) failed.",
+      "details": {
+        "link_id": "BD",
+        "source": "B",
+        "target": "D",
+        "previous_state": true,
+        "new_state": false
+      }
+    },
+    {
+      "record_id": 3,
+      "time": 0,
+      "event_type": "convergence_status_change",
+      "router_id": null,
+      "caused_by": "E00001",
+      "description": "Network is reconverging since t=0.",
+      "details": {
+        "converged": false,
+        "started_at": 0
+      }
+    },
+    {
+      "record_id": 4,
+      "time": 0,
+      "event_type": "lsa_generation",
+      "router_id": "B",
+      "caused_by": "E00002",
+      "description": "B originated LSA seq 2.",
+      "details": {
+        "lsa": {
+          "origin_router_id": "B",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "AB",
+              "neighbor_id": "A",
+              "cost": 1,
+              "active": true
+            },
+            {
+              "link_id": "BD",
+              "neighbor_id": "D",
+              "cost": 1,
+              "active": false
+            }
+          ]
+        },
+        "trigger": "link_failure",
+        "link_id": "BD"
+      }
+    },
+    {
+      "record_id": 5,
+      "time": 0,
+      "event_type": "lsdb_update",
+      "router_id": "B",
+      "caused_by": "E00002",
+      "description": "B installed LSA B#2.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "previous_sequence_number": null,
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 6,
+      "time": 0,
+      "event_type": "lsa_transmission",
+      "router_id": "B",
+      "caused_by": "E00002",
+      "description": "B sent LSA B#2 to A via AB (flood), arriving at t=1.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "to_router": "A",
+        "link_id": "AB",
+        "reason": "flood",
+        "arrival_time": 1,
+        "reception_event_id": "E00005"
+      }
+    },
+    {
+      "record_id": 7,
+      "time": 0,
+      "event_type": "lsa_generation",
+      "router_id": "D",
+      "caused_by": "E00003",
+      "description": "D originated LSA seq 2.",
+      "details": {
+        "lsa": {
+          "origin_router_id": "D",
+          "sequence_number": 2,
+          "timestamp": 0,
+          "links": [
+            {
+              "link_id": "BD",
+              "neighbor_id": "B",
+              "cost": 1,
+              "active": false
+            },
+            {
+              "link_id": "CD",
+              "neighbor_id": "C",
+              "cost": 3,
+              "active": true
+            }
+          ]
+        },
+        "trigger": "link_failure",
+        "link_id": "BD"
+      }
+    },
+    {
+      "record_id": 8,
+      "time": 0,
+      "event_type": "lsdb_update",
+      "router_id": "D",
+      "caused_by": "E00003",
+      "description": "D installed LSA D#2.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "previous_sequence_number": null,
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 9,
+      "time": 0,
+      "event_type": "lsa_transmission",
+      "router_id": "D",
+      "caused_by": "E00003",
+      "description": "D sent LSA D#2 to C via CD (flood), arriving at t=1.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "to_router": "C",
+        "link_id": "CD",
+        "reason": "flood",
+        "arrival_time": 1,
+        "reception_event_id": "E00007"
+      }
+    },
+    {
+      "record_id": 10,
+      "time": 0,
+      "event_type": "spf_calculation",
+      "router_id": "B",
+      "caused_by": "E00004",
+      "description": "B ran SPF on its LSDB (version 5).",
+      "details": {
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 11,
+      "time": 0,
+      "event_type": "routing_table_update",
+      "router_id": "B",
+      "caused_by": "E00004",
+      "description": "B routing table changed for D.",
+      "details": {
+        "changes": [
+          {
+            "destination": "D",
+            "previous": {
+              "destination": "D",
+              "next_hop": "D",
+              "path": [
+                "B",
+                "D"
+              ],
+              "cost": 1,
+              "reachable": true
+            },
+            "current": {
+              "destination": "D",
+              "next_hop": "A",
+              "path": [
+                "B",
+                "A",
+                "C",
+                "D"
+              ],
+              "cost": 6,
+              "reachable": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "record_id": 12,
+      "time": 0,
+      "event_type": "spf_calculation",
+      "router_id": "D",
+      "caused_by": "E00006",
+      "description": "D ran SPF on its LSDB (version 5).",
+      "details": {
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 13,
+      "time": 0,
+      "event_type": "routing_table_update",
+      "router_id": "D",
+      "caused_by": "E00006",
+      "description": "D routing table changed for A, B.",
+      "details": {
+        "changes": [
+          {
+            "destination": "A",
+            "previous": {
+              "destination": "A",
+              "next_hop": "B",
+              "path": [
+                "D",
+                "B",
+                "A"
+              ],
+              "cost": 2,
+              "reachable": true
+            },
+            "current": {
+              "destination": "A",
+              "next_hop": "C",
+              "path": [
+                "D",
+                "C",
+                "A"
+              ],
+              "cost": 5,
+              "reachable": true
+            }
+          },
+          {
+            "destination": "B",
+            "previous": {
+              "destination": "B",
+              "next_hop": "B",
+              "path": [
+                "D",
+                "B"
+              ],
+              "cost": 1,
+              "reachable": true
+            },
+            "current": {
+              "destination": "B",
+              "next_hop": "C",
+              "path": [
+                "D",
+                "C",
+                "A",
+                "B"
+              ],
+              "cost": 6,
+              "reachable": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "record_id": 14,
+      "time": 1,
+      "event_type": "lsa_reception",
+      "router_id": "A",
+      "caused_by": "E00005",
+      "description": "A received LSA B#2 from B via AB.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "from_router": "B",
+        "link_id": "AB"
+      }
+    },
+    {
+      "record_id": 15,
+      "time": 1,
+      "event_type": "lsdb_update",
+      "router_id": "A",
+      "caused_by": "E00005",
+      "description": "A installed LSA B#2.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "previous_sequence_number": 1,
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 16,
+      "time": 1,
+      "event_type": "lsa_transmission",
+      "router_id": "A",
+      "caused_by": "E00005",
+      "description": "A sent LSA B#2 to C via AC (flood), arriving at t=2.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "to_router": "C",
+        "link_id": "AC",
+        "reason": "flood",
+        "arrival_time": 2,
+        "reception_event_id": "E00009"
+      }
+    },
+    {
+      "record_id": 17,
+      "time": 1,
+      "event_type": "lsa_reception",
+      "router_id": "C",
+      "caused_by": "E00007",
+      "description": "C received LSA D#2 from D via CD.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "from_router": "D",
+        "link_id": "CD"
+      }
+    },
+    {
+      "record_id": 18,
+      "time": 1,
+      "event_type": "lsdb_update",
+      "router_id": "C",
+      "caused_by": "E00007",
+      "description": "C installed LSA D#2.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "previous_sequence_number": 1,
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 19,
+      "time": 1,
+      "event_type": "lsa_transmission",
+      "router_id": "C",
+      "caused_by": "E00007",
+      "description": "C sent LSA D#2 to A via AC (flood), arriving at t=2.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "to_router": "A",
+        "link_id": "AC",
+        "reason": "flood",
+        "arrival_time": 2,
+        "reception_event_id": "E00011"
+      }
+    },
+    {
+      "record_id": 20,
+      "time": 1,
+      "event_type": "spf_calculation",
+      "router_id": "A",
+      "caused_by": "E00008",
+      "description": "A ran SPF on its LSDB (version 5).",
+      "details": {
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 21,
+      "time": 1,
+      "event_type": "routing_table_update",
+      "router_id": "A",
+      "caused_by": "E00008",
+      "description": "A routing table changed for D.",
+      "details": {
+        "changes": [
+          {
+            "destination": "D",
+            "previous": {
+              "destination": "D",
+              "next_hop": "B",
+              "path": [
+                "A",
+                "B",
+                "D"
+              ],
+              "cost": 2,
+              "reachable": true
+            },
+            "current": {
+              "destination": "D",
+              "next_hop": "C",
+              "path": [
+                "A",
+                "C",
+                "D"
+              ],
+              "cost": 5,
+              "reachable": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "record_id": 22,
+      "time": 1,
+      "event_type": "spf_calculation",
+      "router_id": "C",
+      "caused_by": "E00010",
+      "description": "C ran SPF on its LSDB (version 5).",
+      "details": {
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 23,
+      "time": 2,
+      "event_type": "lsa_reception",
+      "router_id": "C",
+      "caused_by": "E00009",
+      "description": "C received LSA B#2 from A via AC.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "from_router": "A",
+        "link_id": "AC"
+      }
+    },
+    {
+      "record_id": 24,
+      "time": 2,
+      "event_type": "lsdb_update",
+      "router_id": "C",
+      "caused_by": "E00009",
+      "description": "C installed LSA B#2.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "previous_sequence_number": 1,
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 25,
+      "time": 2,
+      "event_type": "lsa_transmission",
+      "router_id": "C",
+      "caused_by": "E00009",
+      "description": "C sent LSA B#2 to D via CD (flood), arriving at t=3.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "to_router": "D",
+        "link_id": "CD",
+        "reason": "flood",
+        "arrival_time": 3,
+        "reception_event_id": "E00013"
+      }
+    },
+    {
+      "record_id": 26,
+      "time": 2,
+      "event_type": "lsa_reception",
+      "router_id": "A",
+      "caused_by": "E00011",
+      "description": "A received LSA D#2 from C via AC.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "from_router": "C",
+        "link_id": "AC"
+      }
+    },
+    {
+      "record_id": 27,
+      "time": 2,
+      "event_type": "lsdb_update",
+      "router_id": "A",
+      "caused_by": "E00011",
+      "description": "A installed LSA D#2.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "previous_sequence_number": 1,
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 28,
+      "time": 2,
+      "event_type": "lsa_transmission",
+      "router_id": "A",
+      "caused_by": "E00011",
+      "description": "A sent LSA D#2 to B via AB (flood), arriving at t=3.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "to_router": "B",
+        "link_id": "AB",
+        "reason": "flood",
+        "arrival_time": 3,
+        "reception_event_id": "E00015"
+      }
+    },
+    {
+      "record_id": 29,
+      "time": 2,
+      "event_type": "spf_calculation",
+      "router_id": "C",
+      "caused_by": "E00012",
+      "description": "C ran SPF on its LSDB (version 6).",
+      "details": {
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 30,
+      "time": 2,
+      "event_type": "spf_calculation",
+      "router_id": "A",
+      "caused_by": "E00014",
+      "description": "A ran SPF on its LSDB (version 6).",
+      "details": {
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 31,
+      "time": 3,
+      "event_type": "lsa_reception",
+      "router_id": "D",
+      "caused_by": "E00013",
+      "description": "D received LSA B#2 from C via CD.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "from_router": "C",
+        "link_id": "CD"
+      }
+    },
+    {
+      "record_id": 32,
+      "time": 3,
+      "event_type": "lsdb_update",
+      "router_id": "D",
+      "caused_by": "E00013",
+      "description": "D installed LSA B#2.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "previous_sequence_number": 1,
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 33,
+      "time": 3,
+      "event_type": "lsa_reception",
+      "router_id": "B",
+      "caused_by": "E00015",
+      "description": "B received LSA D#2 from A via AB.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "from_router": "A",
+        "link_id": "AB"
+      }
+    },
+    {
+      "record_id": 34,
+      "time": 3,
+      "event_type": "lsdb_update",
+      "router_id": "B",
+      "caused_by": "E00015",
+      "description": "B installed LSA D#2.",
+      "details": {
+        "origin_router_id": "D",
+        "sequence_number": 2,
+        "previous_sequence_number": 1,
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 35,
+      "time": 3,
+      "event_type": "spf_calculation",
+      "router_id": "D",
+      "caused_by": "E00016",
+      "description": "D ran SPF on its LSDB (version 6).",
+      "details": {
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 36,
+      "time": 3,
+      "event_type": "spf_calculation",
+      "router_id": "B",
+      "caused_by": "E00017",
+      "description": "B ran SPF on its LSDB (version 6).",
+      "details": {
+        "lsdb_version": 6
+      }
+    },
+    {
+      "record_id": 37,
+      "time": 3,
+      "event_type": "convergence_status_change",
+      "router_id": null,
+      "caused_by": "E00017",
+      "description": "Network reconverged at t=3 after 3 time units.",
+      "details": {
+        "converged": true,
+        "started_at": 0,
+        "converged_at": 3,
+        "duration": 3,
+        "trigger_event_ids": [
+          "E00001"
+        ],
+        "partitioned": false
+      }
+    }
+  ],
+  "convergence": {
+    "converged": true,
+    "status": "converged",
+    "pending_protocol_events": 0,
+    "relevant_pending_events": 0,
+    "reasons": [],
+    "current_episode_started_at": null,
+    "last_change_time": 0,
+    "last_converged_time": 3,
+    "reconvergence_episodes": [
+      {
+        "started_at": 0,
+        "converged_at": 3,
+        "duration": 3,
+        "trigger_event_ids": [
+          "E00001"
+        ],
+        "partitioned": false
+      }
+    ]
+  },
+  "partition": {
+    "partitioned": false,
+    "component_count": 1,
+    "components": [
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    ],
+    "isolated_routers": []
+  }
+}
