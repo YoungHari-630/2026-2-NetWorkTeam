@@ -1,0 +1,25 @@
+{
+  "routers": [
+    {"id": "Seoul"}, {"id": "Incheon"}, {"id": "Suwon"}, {"id": "Chuncheon"},
+    {"id": "Daejeon"}, {"id": "Cheongju"}, {"id": "Jeonju"}, {"id": "Gwangju"},
+    {"id": "Daegu"}, {"id": "Ulsan"}, {"id": "Busan"}, {"id": "Jeju"}
+  ],
+  "links": [
+    {"id": "SEL-ICN", "source": "Seoul", "target": "Incheon", "cost": 1, "active": true},
+    {"id": "SEL-SUW", "source": "Seoul", "target": "Suwon", "cost": 1, "active": true},
+    {"id": "SEL-CHC", "source": "Seoul", "target": "Chuncheon", "cost": 3, "active": true},
+    {"id": "ICN-SUW", "source": "Incheon", "target": "Suwon", "cost": 2, "active": true},
+    {"id": "SUW-DJN", "source": "Suwon", "target": "Daejeon", "cost": 4, "active": true},
+    {"id": "SUW-CJU", "source": "Suwon", "target": "Cheongju", "cost": 3, "active": true},
+    {"id": "CHC-CJU", "source": "Chuncheon", "target": "Cheongju", "cost": 5, "active": true},
+    {"id": "CJU-DJN", "source": "Cheongju", "target": "Daejeon", "cost": 1, "active": true},
+    {"id": "DJN-JJU", "source": "Daejeon", "target": "Jeonju", "cost": 2, "active": true},
+    {"id": "DJN-DGU", "source": "Daejeon", "target": "Daegu", "cost": 3, "active": true},
+    {"id": "JJU-GWJ", "source": "Jeonju", "target": "Gwangju", "cost": 2, "active": true},
+    {"id": "GWJ-BSN", "source": "Gwangju", "target": "Busan", "cost": 6, "active": true},
+    {"id": "DGU-ULS", "source": "Daegu", "target": "Ulsan", "cost": 2, "active": true},
+    {"id": "DGU-BSN", "source": "Daegu", "target": "Busan", "cost": 2, "active": true},
+    {"id": "ULS-BSN", "source": "Ulsan", "target": "Busan", "cost": 1, "active": true},
+    {"id": "GWJ-JEJ", "source": "Gwangju", "target": "Jeju", "cost": 7, "active": true}
+  ]
+}

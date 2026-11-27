@@ -1,0 +1,79 @@
+{
+  "event": {
+    "event_id": "E00005",
+    "time": 1,
+    "event_type": "lsa_reception",
+    "router_id": "A",
+    "payload": {
+      "lsa": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "timestamp": 0,
+        "links": [
+          {
+            "link_id": "AB",
+            "neighbor_id": "A",
+            "cost": 1,
+            "active": true
+          },
+          {
+            "link_id": "BD",
+            "neighbor_id": "D",
+            "cost": 1,
+            "active": false
+          }
+        ]
+      },
+      "from_router": "B",
+      "link_id": "AB",
+      "reason": "flood"
+    }
+  },
+  "records": [
+    {
+      "record_id": 14,
+      "time": 1,
+      "event_type": "lsa_reception",
+      "router_id": "A",
+      "caused_by": "E00005",
+      "description": "A received LSA B#2 from B via AB.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "from_router": "B",
+        "link_id": "AB"
+      }
+    },
+    {
+      "record_id": 15,
+      "time": 1,
+      "event_type": "lsdb_update",
+      "router_id": "A",
+      "caused_by": "E00005",
+      "description": "A installed LSA B#2.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "previous_sequence_number": 1,
+        "lsdb_version": 5
+      }
+    },
+    {
+      "record_id": 16,
+      "time": 1,
+      "event_type": "lsa_transmission",
+      "router_id": "A",
+      "caused_by": "E00005",
+      "description": "A sent LSA B#2 to C via AC (flood), arriving at t=2.",
+      "details": {
+        "origin_router_id": "B",
+        "sequence_number": 2,
+        "to_router": "C",
+        "link_id": "AC",
+        "reason": "flood",
+        "arrival_time": 2,
+        "reception_event_id": "E00009"
+      }
+    }
+  ]
+}

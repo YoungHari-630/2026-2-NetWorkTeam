@@ -1,0 +1,40 @@
+{
+  "event": {
+    "event_id": "E00001",
+    "time": 0,
+    "event_type": "link_failure",
+    "router_id": null,
+    "payload": {
+      "link_id": "BD"
+    }
+  },
+  "records": [
+    {
+      "record_id": 2,
+      "time": 0,
+      "event_type": "link_failure",
+      "router_id": null,
+      "caused_by": "E00001",
+      "description": "Link BD (B-D) failed.",
+      "details": {
+        "link_id": "BD",
+        "source": "B",
+        "target": "D",
+        "previous_state": true,
+        "new_state": false
+      }
+    },
+    {
+      "record_id": 3,
+      "time": 0,
+      "event_type": "convergence_status_change",
+      "router_id": null,
+      "caused_by": "E00001",
+      "description": "Network is reconverging since t=0.",
+      "details": {
+        "converged": false,
+        "started_at": 0
+      }
+    }
+  ]
+}
